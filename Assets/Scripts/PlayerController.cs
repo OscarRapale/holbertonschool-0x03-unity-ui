@@ -1,13 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 7f; // Public variable to control speed
+    public float speed = 9f; // Public variable to control speed
     public int health = 5; // Public variable for health
     private int initialHealth; // Store initial health for reset
     private int score = 0; // Player score
     private int initialScore; // Store initial score for reset
+
+    public Text scoreText;
 
 
     // Rigidbody component reference
@@ -21,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
         // Get the Rigidbody component attached to the Player
         rb = GetComponent<Rigidbody>();
+
+        // Initialize the scoreText UI
+        SetScoreText();
     }
 
     void FixedUpdate()
@@ -44,8 +50,11 @@ public class PlayerController : MonoBehaviour
             // Increment the score
             score++;
 
+            // Update the ScoreText UI
+            SetScoreText();
+
             // Log the updated score to the console
-            Debug.Log("Score: " + score);
+            //Debug.Log("Score: " + score);
 
             // Disable the Coin GameObject
             other.gameObject.SetActive(false);
@@ -83,6 +92,15 @@ public class PlayerController : MonoBehaviour
             // Reset health and score to their initial values
             health = initialHealth;
             score = initialScore;
+
+            // Update the ScoreText UI
+            SetScoreText();
         }
+    }
+
+    // Method to update the ScoreText UI
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
     }
 }
