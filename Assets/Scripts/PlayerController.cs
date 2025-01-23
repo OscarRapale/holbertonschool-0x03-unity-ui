@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private int initialScore; // Store initial score for reset
 
     public Text scoreText;
-
+    public Text healthText; // Reference to the HealthText UI element
 
     // Rigidbody component reference
     private Rigidbody rb;
@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
         // Get the Rigidbody component attached to the Player
         rb = GetComponent<Rigidbody>();
 
-        // Initialize the scoreText UI
+        // Initialize the scoreText and HealthText UI
         SetScoreText();
+        SetHealthText();
     }
 
     void FixedUpdate()
@@ -66,8 +67,11 @@ public class PlayerController : MonoBehaviour
             // Decrement the health when hitting a trap
             health--;
 
+            // Update the HealthText UI
+            SetHealthText();
+
             // Log the updated health to the console
-            Debug.Log("Health: " + health);
+            // Debug.Log("Health: " + health);
         }
 
         // Check if the Player collides with an object tagged "Goal"
@@ -95,6 +99,8 @@ public class PlayerController : MonoBehaviour
 
             // Update the ScoreText UI
             SetScoreText();
+            // Update the HealthText UI
+            SetHealthText();
         }
     }
 
@@ -102,5 +108,11 @@ public class PlayerController : MonoBehaviour
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
+    }
+
+    // Method to update the HealthText UI
+    void SetHealthText()
+    {
+        healthText.text = "Health: " + health.ToString();
     }
 }
