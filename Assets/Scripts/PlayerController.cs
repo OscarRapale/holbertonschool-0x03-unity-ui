@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     public Text scoreText;
     public Text healthText; // Reference to the HealthText UI element
+    public Text winLoseText; // Reference to the WinLoseText UI element
+    public Image winLoseBG; // Reference to the WinLoseBG UI element
 
     // Rigidbody component reference
     private Rigidbody rb;
@@ -28,6 +30,9 @@ public class PlayerController : MonoBehaviour
         // Initialize the scoreText and HealthText UI
         SetScoreText();
         SetHealthText();
+
+        // Ensure WinLoseBG is inactive at the start
+        winLoseBG.gameObject.SetActive(false);
     }
 
     void FixedUpdate()
@@ -77,8 +82,15 @@ public class PlayerController : MonoBehaviour
         // Check if the Player collides with an object tagged "Goal"
         else if (other.gameObject.CompareTag("Goal"))
         {
-            // Display "You win!" message in the console
-            Debug.Log("You win!");
+            // Display "You Win!" in the WinLoseText UI
+            winLoseText.text = "You Win!";
+            winLoseText.color = Color.black; // Set text color to black
+
+            // Change WinLoseBG color to green
+            winLoseBG.color = Color.green;
+
+            // Activate the WinLoseBG GameObject
+            winLoseBG.gameObject.SetActive(true);
         }
     }
 
@@ -87,8 +99,15 @@ public class PlayerController : MonoBehaviour
         // Check if the health equals 0
         if (health <= 0)
         {
-            // Log the game over message
-            Debug.Log("Game Over!");
+            // Display Game Over in the WinLoseText UI
+            winLoseText.text = "Game Over!";
+            winLoseText.color = Color.white;
+
+            // Change WinLoseBG to red
+            winLoseBG.color = Color.red;
+
+            // Activate the WinLoseBG GameObject
+            winLoseBG.gameObject.SetActive(true);
 
             // Reload the current scene (restarts the game)
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);

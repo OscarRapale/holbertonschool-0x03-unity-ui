@@ -3040,6 +3040,16 @@ Prefab:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1897774732}
+    - target: {fileID: 114037491870878336, guid: 64b09695914b940488d624488fa719df,
+        type: 2}
+      propertyPath: winLoseBG
+      value: 
+      objectReference: {fileID: 1492872940}
+    - target: {fileID: 114037491870878336, guid: 64b09695914b940488d624488fa719df,
+        type: 2}
+      propertyPath: winLoseText
+      value: 
+      objectReference: {fileID: 2132895937}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 64b09695914b940488d624488fa719df, type: 2}
   m_IsPrefabParent: 0
@@ -3200,6 +3210,8 @@ MonoBehaviour:
   health: 5
   scoreText: {fileID: 1612001826}
   healthText: {fileID: 1897774732}
+  winLoseText: {fileID: 2132895937}
+  winLoseBG: {fileID: 1492872940}
 --- !u!1 &1161673469
 GameObject:
   m_ObjectHideFlags: 0
