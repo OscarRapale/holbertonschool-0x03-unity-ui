@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
@@ -59,9 +60,6 @@ public class PlayerController : MonoBehaviour
             // Update the ScoreText UI
             SetScoreText();
 
-            // Log the updated score to the console
-            //Debug.Log("Score: " + score);
-
             // Disable the Coin GameObject
             other.gameObject.SetActive(false);
         }
@@ -75,8 +73,22 @@ public class PlayerController : MonoBehaviour
             // Update the HealthText UI
             SetHealthText();
 
-            // Log the updated health to the console
-            // Debug.Log("Health: " + health);
+            // Check for game over condition
+            if (health <= 0)
+            {
+                // Display "Game Over!" in the WinLoseText UI
+                winLoseText.text = "Game Over!";
+                winLoseText.color = Color.white; // Set text color to white
+
+                // Change WinLoseBG color to red
+                winLoseBG.color = Color.red;
+
+                // Activate the WinLoseBG GameObject
+                winLoseBG.gameObject.SetActive(true);
+
+                // Start the coroutine to reload the scene after 3 seconds
+                StartCoroutine(LoadScene(3f));
+            }
         }
 
         // Check if the Player collides with an object tagged "Goal"
@@ -91,35 +103,9 @@ public class PlayerController : MonoBehaviour
 
             // Activate the WinLoseBG GameObject
             winLoseBG.gameObject.SetActive(true);
-        }
-    }
 
-    void Update()
-    {
-        // Check if the health equals 0
-        if (health <= 0)
-        {
-            // Display Game Over in the WinLoseText UI
-            winLoseText.text = "Game Over!";
-            winLoseText.color = Color.white;
-
-            // Change WinLoseBG to red
-            winLoseBG.color = Color.red;
-
-            // Activate the WinLoseBG GameObject
-            winLoseBG.gameObject.SetActive(true);
-
-            // Reload the current scene (restarts the game)
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-            // Reset health and score to their initial values
-            health = initialHealth;
-            score = initialScore;
-
-            // Update the ScoreText UI
-            SetScoreText();
-            // Update the HealthText UI
-            SetHealthText();
+            // Start the coroutine to reload the scene after 3 seconds
+            StartCoroutine(LoadScene(3f));
         }
     }
 
@@ -133,5 +119,15 @@ public class PlayerController : MonoBehaviour
     void SetHealthText()
     {
         healthText.text = "Health: " + health.ToString();
+    }
+
+    // Coroutine to reload the scene after a delay
+    IEnumerator LoadScene(float seconds)
+    {
+        // Wait for the specified number of seconds
+        yield return new WaitForSeconds(seconds);
+
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
