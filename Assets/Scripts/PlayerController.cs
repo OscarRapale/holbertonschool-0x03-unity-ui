@@ -109,6 +109,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+       // Check if the Esc key is pressed
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Load the menu scene
+            SceneManager.LoadScene("menu");
+        } 
+    }
+
     // Method to update the ScoreText UI
     void SetScoreText()
     {
